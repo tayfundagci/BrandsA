@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BrandsA.Application.Dtos;
 using BrandsA.Application.Handlers.Product.Commands;
+using BrandsA.Application.Handlers.Product.Queries;
 using BrandsA.Application.Handlers.User.Commands;
 using BrandsA.Core.Entities;
 using System;
@@ -21,6 +22,9 @@ namespace BrandsA.Application.Mapping
             //Product
             CreateMap<Product, ProductDto>();
             CreateMap<CreateProductCommand, Product>();
+            CreateMap<UpdateProductCommand, Product>();
+            CreateMap<DeleteProductCommand, Product>();
+            CreateMap<ListProductsQuery, Product>();
         }
     }
 }

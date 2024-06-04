@@ -34,8 +34,9 @@ namespace BrandsA.Application.Handlers.Product.Commands
                     var product = new Core.Entities.Product()
                     {
                         Name = request.Name,
-                        Description = Encryption.EncryptPassword(request.Description),
+                        Description = request.Description,
                         Price = request.Price,
+                        CreatedDate = DateTime.Now
                     };
 
                     var productDto = _mapper.Map<ProductDto>(product);

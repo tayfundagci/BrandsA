@@ -6,8 +6,7 @@
         public DateTime CreatedDate { get; set; }
         public BaseEntity()
         {
-            Id = Guid.NewGuid();
-            CreatedDate = DateTime.Now;
+            Id = Guid.NewGuid();    
         }
         public bool IsDeleted { get; set; }
     }

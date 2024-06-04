@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BrandsA.Application.Handlers.Product.Commands;
+using BrandsA.Application.Handlers.Product.Queries;
 using BrandsA.Application.Handlers.User.Commands;
 using BrandsA.Application.Mapping;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,10 @@ namespace BrandsA.Application
                 //User
                 typeof(CreateUserCommand).Assembly,
                 //Product
-                typeof(CreateProductCommand).Assembly
+                typeof(CreateProductCommand).Assembly,
+                typeof(UpdateProductCommand).Assembly,
+                typeof(ListProductsQuery).Assembly,
+                typeof(DeleteProductCommand).Assembly
             ));; 
         }
     }

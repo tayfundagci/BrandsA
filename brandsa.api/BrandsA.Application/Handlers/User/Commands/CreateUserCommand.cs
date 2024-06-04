@@ -35,6 +35,7 @@ namespace BrandsA.Application.Handlers.User.Commands
                     {
                         Username = request.Username,
                         Password = Encryption.EncryptPassword(request.Password),
+                        CreatedDate = DateTime.Now
                     };
 
                     var userDto = _mapper.Map<UserDto>(user);

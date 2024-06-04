@@ -1,4 +1,5 @@
 ﻿using BrandsA.Application.Interfaces;
+using BrandsA.Core.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BrandsA.Persistence.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly DbContext _context;
         private readonly DbSet<T> _dbSet;
@@ -53,6 +54,14 @@ namespace BrandsA.Persistence.Repositories
         public async Task<bool> Delete(T entity)
         {
             _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> SoftDelete(T entity)
+        {
+            entity.IsDeleted = true;
+            _dbSet.Update(entity);
             await _context.SaveChangesAsync();
             return true;
         }
