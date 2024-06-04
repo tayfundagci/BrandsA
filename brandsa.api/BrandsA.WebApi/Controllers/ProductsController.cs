@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BrandsA.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,28 +19,24 @@ namespace BrandsA.WebApi.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<ActionResult> Create(CreateProductCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult> List(ListProductsQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
 
         [HttpDelete("{id}")]
-        [AllowAnonymous]
         public async Task<ActionResult> Delete(Guid id)
         {
             return Ok(await _mediator.Send(new DeleteProductCommand { Id = id }));
         }
 
         [HttpPut("{id}")]
-        [AllowAnonymous]
         public async Task<ActionResult> Put(Guid id, UpdateProductCommand command)
         {
             command.Id = id;

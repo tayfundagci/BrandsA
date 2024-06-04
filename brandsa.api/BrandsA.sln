@@ -15,10 +15,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrandsA.Application", "BrandsA.Application\BrandsA.Application.csproj", "{D941E553-3AC4-4725-9EF3-E43D5FBC2666}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrandsA.Shared", "BrandsA.Shared\BrandsA.Shared.csproj", "{8E8688A0-B6CD-4760-840D-1622FBE0DA8E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0C25D499-9832-4EC6-B943-936F8367CEDE} = {0C25D499-9832-4EC6-B943-936F8367CEDE}
-		{D941E553-3AC4-4725-9EF3-E43D5FBC2666} = {D941E553-3AC4-4725-9EF3-E43D5FBC2666}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

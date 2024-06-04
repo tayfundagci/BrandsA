@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BrandsA.Core\BrandsA.Core.csproj" />
+    <ProjectReference Include="..\BrandsA.Shared\BrandsA.Shared.csproj" />
   </ItemGroup>
 
 </Project>

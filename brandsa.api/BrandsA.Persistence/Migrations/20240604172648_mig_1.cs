@@ -35,6 +35,8 @@ namespace BrandsA.Persistence.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
+                    RefreshToken = table.Column<string>(name: "Refresh_Token", type: "nvarchar(max)", nullable: true),
+                    RefreshTokenExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },

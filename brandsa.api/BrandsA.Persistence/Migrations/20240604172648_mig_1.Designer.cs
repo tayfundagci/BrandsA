@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BrandsA.Persistence.Migrations
 {
     [DbContext(typeof(EfContext))]
-    [Migration("20240604121633_mig_1")]
+    [Migration("20240604172648_mig_1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -67,6 +67,12 @@ namespace BrandsA.Persistence.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RefreshTokenExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Refresh_Token")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")

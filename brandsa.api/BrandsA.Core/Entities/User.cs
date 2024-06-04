@@ -8,5 +8,7 @@ namespace BrandsA.Core.Entities
         public string Username { get; set; }
         public string Password { get; set; }
         public enmRole Role { get; set; } = enmRole.User;
+        public string? Refresh_Token { get; set; }
+        public DateTime? RefreshTokenExpireDate { get; set; }
     }
 }
