@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BrandsA.Application.Dtos;
-using BrandsA.Application.Handlers.User;
+using BrandsA.Application.Handlers.Product.Commands;
+using BrandsA.Application.Handlers.User.Commands;
 using BrandsA.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace BrandsA.Application.Mapping
             //User
             CreateMap<User, UserDto>();
             CreateMap<CreateUserCommand, User>();
+            //Product
+            CreateMap<Product, ProductDto>();
+            CreateMap<CreateProductCommand, Product>();
         }
     }
 }

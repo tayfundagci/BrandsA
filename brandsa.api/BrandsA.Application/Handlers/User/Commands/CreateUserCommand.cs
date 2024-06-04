@@ -3,9 +3,10 @@ using BrandsA.Application.Dtos;
 using BrandsA.Application.Interfaces;
 using BrandsA.Application.Password;
 using BrandsA.Application.Response;
+using FluentValidation;
 using MediatR;
 
-namespace BrandsA.Application.Handlers.User
+namespace BrandsA.Application.Handlers.User.Commands
 {
     public class CreateUserCommand : IRequest<BaseDataResponse<UserDto>>
     {
@@ -39,7 +40,7 @@ namespace BrandsA.Application.Handlers.User
                     var userDto = _mapper.Map<UserDto>(user);
                     var success = await _userRepository.Create(user);
                     return new BaseDataResponse<UserDto>(userDto, success, "User created successfuly!");
-                } 
+                }
                 else
                 {
                     return new BaseDataResponse<UserDto>(null!, false, "This user is already exists!");
@@ -49,6 +50,8 @@ namespace BrandsA.Application.Handlers.User
 
         }
     }
+
+
 }
 
 

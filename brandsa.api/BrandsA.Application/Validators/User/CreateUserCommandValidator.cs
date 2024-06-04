@@ -1,4 +1,4 @@
-﻿using BrandsA.Application.Handlers.User;
+﻿using BrandsA.Application.Handlers.User.Commands;
 using FluentValidation;
 
 namespace BrandsA.Application.Validators.User

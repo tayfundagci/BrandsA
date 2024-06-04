@@ -31,6 +31,7 @@ namespace BrandsA.Persistence
             //}).AddRoles<Role>().AddEntityFrameworkStores<EfContext>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
     }
 }

@@ -13,5 +13,6 @@ namespace BrandsA.Persistence.Context
         public EfContext(DbContextOptions<EfContext> options) : base(options) { }
 
         public DbSet<User> User { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }
