@@ -38,7 +38,7 @@ namespace BrandsA.Application.Handlers.User
 
                     var userDto = _mapper.Map<UserDto>(user);
                     var success = await _userRepository.Create(user);
-                    return new BaseDataResponse<UserDto>(userDto, success, "User Created");
+                    return new BaseDataResponse<UserDto>(userDto, success, "User created successfuly!");
                 } 
                 else
                 {
