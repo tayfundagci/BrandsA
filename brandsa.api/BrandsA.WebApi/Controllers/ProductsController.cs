@@ -25,7 +25,7 @@ namespace BrandsA.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> List(ListProductsQuery query)
+        public async Task<ActionResult> List([FromQuery] ListProductsQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
@@ -41,6 +41,12 @@ namespace BrandsA.WebApi.Controllers
         {
             command.Id = id;
             return Ok(await _mediator.Send(command));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Detail(Guid id)
+        {
+            return Ok(await _mediator.Send(new GetProductQuery { Id = id }));
         }
 
     }

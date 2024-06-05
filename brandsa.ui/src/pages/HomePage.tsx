@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { enmRole } from '../core/enums/Role';
 import mdlProduct from '../core/models/Product';
 import ProductService from '../core/services/ProductService';
 import mdlListProductRequest from '../core/servicemodels/product/ListProductRequest';
-import { debug } from 'console';
-import mdlCreateProductRequest from '../core/servicemodels/product/CreateProductRequest';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function HomePage() {
 
@@ -18,25 +17,39 @@ function HomePage() {
     if (products.length == 0) {
       getProducts();
     }
-  }, [])
-
-
+  }, [products])
 
   const getProducts = async () => {
     const response = await ProductService.List(new mdlListProductRequest())
-    if (response && response.products && response.products?.length > 0) {
+    if (response && response.success) {
       console.log(response)
-      setProducts(response.products)
+      setProducts(response.body!)
     }
   }
 
+  const confirmDelete = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete") == true) {
+      const response = await ProductService.Delete(id);
+      if (response && response.success) {
+        toast.success(response.message);
+        getProducts();
+      }
+    } else {
+      toast.warning("You canceled!");
+    }
+  }
 
   return (
     <div>
       <div className='p-20 flex flex-col'>
-        {user?.role == enmRole.Admin && <button className='pb-5 flex justify-end font-medium hover:underline' onClick={() => navigate("/create")}>Create Product</button>}
+        {user?.role == enmRole.Admin && (
+          <div className='flex justify-end'>
+            <button className='m-2 h-9 px-3  font-medium  bg-gray-200 border border-black rounded-md ' onClick={() => navigate("/create")}>Create Product</button>
+          </div>
+        )}
 
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
             <thead className="text-xs text-gray-50 uppercase  bg-gray-700 ">
               <tr>
@@ -46,9 +59,9 @@ function HomePage() {
                 <th scope="col-3" className="px-6 py-3">
                   Description
                 </th>
-                <th scope="col-3" className="px-6 py-3">
+                {/* <th scope="col-3" className="px-6 py-3">
                   Price
-                </th>
+                </th> */}
                 {user?.role == enmRole.Admin && (
                   <th scope="col-3" className="px-6 py-3">
                     Actions
@@ -57,33 +70,31 @@ function HomePage() {
               </tr>
             </thead>
             <tbody>
-              {products.map((item: any) => (
-                <tr className="bg-white border-b  hover:bg-gray-50 ">
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                    {item.name}
+              {products.length == 0 && (
+                <div className='p-2'>There is no product. You can add new one!</div>
+              )}
+              {products.map((item) => (
+                <tr key={item.id} className="bg-white border-b  hover:bg-gray-50 ">
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap hover:cursor-pointer " onClick={() => navigate(`/detail/${item.id}`)}>
+                    🔍 {item.name}
                   </th>
                   <td className="px-6 py-4">
                     {item.description}
                   </td>
-                  <td className="px-6 py-4">
+                  {/* <td className="px-6 py-4">
                     {item.price}
-                  </td>
+                  </td> */}
                   {user?.role == enmRole.Admin && (
                     <td className="px-6 py-4 text-right flex gap-3">
-                      <button className="font-medium text-yellow-700 hover:underline"  >Edit</button>
-                      <button className="font-medium text-red-600  hover:underline" >Delete</button>
+                      <button className="font-medium text-yellow-700 hover:underline" onClick={() => navigate(`/edit/${item.id}`)}  >Edit</button>
+                      <button className="font-medium text-red-600  hover:underline" onClick={() => confirmDelete(item.id!)} >Delete</button>
                     </td>
                   )}
                 </tr>
               ))}
-
-
             </tbody>
           </table>
         </div>
-
-
-
       </div>
     </div>
   )

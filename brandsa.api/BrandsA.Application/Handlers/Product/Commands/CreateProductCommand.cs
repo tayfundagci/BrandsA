@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BrandsA.Application.Dtos;
 using BrandsA.Application.Interfaces;
-using BrandsA.Application.Password;
 using BrandsA.Application.Response;
 using MediatR;
 
@@ -27,7 +26,7 @@ namespace BrandsA.Application.Handlers.Product.Commands
             public async Task<BaseDataResponse<ProductDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
             {
                 var productList = await _productRepository.List();
-                var existProduct = productList.FirstOrDefault(x => x.Name == request.Name);
+                var existProduct = productList.FirstOrDefault(x => x.Name == request.Name && !x.IsDeleted);
 
                 if (existProduct == null)
                 {

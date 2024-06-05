@@ -3,17 +3,12 @@ using BrandsA.Application.Dtos;
 using BrandsA.Application.Interfaces;
 using BrandsA.Application.Response;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrandsA.Application.Handlers.Product.Queries
 {
-    public class ListProductsQuery : IRequest<List<ProductDto>>
+    public class ListProductsQuery : IRequest<BaseDataResponse<List<ProductDto>>>
     {
-        public class ListProductsQueryHandler : IRequestHandler<ListProductsQuery, List<ProductDto>>
+        public class ListProductsQueryHandler : IRequestHandler<ListProductsQuery,BaseDataResponse<List<ProductDto>>>
         {
             IProductRepository _productRepository;
             private readonly IMapper _mapper;
@@ -24,11 +19,11 @@ namespace BrandsA.Application.Handlers.Product.Queries
                 _mapper = mapper;
             }
 
-            public async Task<List<ProductDto>> Handle(ListProductsQuery request, CancellationToken cancellationToken)
+            public async Task<BaseDataResponse<List<ProductDto>>> Handle(ListProductsQuery request, CancellationToken cancellationToken)
             {
                 var productList = await _productRepository.List();
                 var productListDto = _mapper.Map<List<ProductDto>>(productList).OrderBy(x => x.CreatedDate).Where(x=> !x.IsDeleted).ToList();
-                return productListDto;
+                return new BaseDataResponse<List<ProductDto>>(productListDto, true, "success");
             }
         }
     }

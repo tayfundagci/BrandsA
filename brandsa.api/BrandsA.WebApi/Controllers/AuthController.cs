@@ -1,7 +1,6 @@
 ﻿using BrandsA.Application.Handlers.User.Commands;
 using BrandsA.Application.Handlers.User.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BrandsA.WebApi.Controllers

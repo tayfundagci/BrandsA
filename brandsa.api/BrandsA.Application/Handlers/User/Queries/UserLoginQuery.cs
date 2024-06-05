@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
 using BrandsA.Application.Dtos;
-using BrandsA.Application.Handlers.User.Commands;
 using BrandsA.Application.Interfaces;
 using BrandsA.Application.Password;
 using BrandsA.Application.Response;
 using BrandsA.Application.Services;
 using MediatR;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrandsA.Application.Handlers.User.Queries
 {
@@ -48,11 +41,11 @@ namespace BrandsA.Application.Handlers.User.Queries
                             User = userDto,
                             Access_Token = token.Access_Token,
                             Refresh_Token = token.Refresh_Token,
-                            Expiration = token.Expiration.AddMinutes(5)
+                            Expiration = token.Expiration.AddMinutes(10)
                         };
 
                         user.Refresh_Token = token.Refresh_Token;
-                        user.RefreshTokenExpireDate = token.Expiration.AddMinutes(5);
+                        user.RefreshTokenExpireDate = token.Expiration.AddMinutes(10);
 
                         await _userRepository.Update(user);
 

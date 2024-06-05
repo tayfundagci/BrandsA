@@ -1,72 +1,113 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import mdlCreateUserRequest from '../core/servicemodels/user/CreateUserRequest';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 import UserService from '../core/services/AuthService';
 import { toast } from 'react-toastify';
+import { enmRole } from '../core/enums/Role';
 
-function RegisterPage() {
-  const [user, setUser] = React.useState(new mdlCreateUserRequest("", ""));
-  const [passwordRepeat, setPasswordRepeat] = React.useState("");
-  const navigate = useNavigate();
+interface FormValues {
+  username: string;
+  password: string;
+  passwordRepeat: string;
+  role: string;
+}
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    if (name === 'username') {
-      setUser({ ...user, username: value });
-    } else if (name === 'password') {
-      setUser({ ...user, password: value });
-    } else if (name === 'passwordRepeat') {
-      setPasswordRepeat(value);
-    }
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required('Username is required'),
+  password: Yup.string().required('Password is required'),
+  passwordRepeat: Yup.string()
+    .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
+    .required('Password confirmation is required'),
+  role: Yup.string().required('Role is required'),
+});
+
+const RegisterPage: React.FC = () => {
+  const initialValues: FormValues = {
+    username: '',
+    password: '',
+    passwordRepeat: '',
+    role: enmRole.Admin.toString(),
   };
 
-  const handleRegister = async (e: any) => {
-    e.preventDefault();
-    if (user.password !== passwordRepeat) {
-      toast.warning("Passwords do not match!");
-      return;
-    }
-    const newUserReq = new mdlCreateUserRequest(user.username, user.password);
-    const response = await UserService.Create(newUserReq);
-    if (response.success) {
-      toast.success(response.message);
-      console.log(response);
-      navigate("/login");
-    } else {
-      toast.warning(response.message);
+  const navigate = useNavigate();
+
+  const handleRegister = async (
+    values: FormValues,
+    { setSubmitting }: FormikHelpers<FormValues>
+  ) => {
+    try {
+      const newUserReq = {
+        username: values.username,
+        password: values.password,
+        role: parseInt(values.role),
+      };
+      const response = await UserService.Create(newUserReq);
+      if (response.success) {
+        toast.success(response.message);
+        console.log(response);
+        navigate('/login');
+      } else {
+        toast.warning(response.message);
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      toast.error('An error occurred while registering.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleRegister} className='flex flex-col gap-4 justify-center items-center'>
-      <input
-        type="text"
-        placeholder='Username'
-        name='username'
-        className='rounded p-2 w-2/4'
-        value={user.username}
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        placeholder='Password'
-        name='password'
-        className='rounded p-2 w-2/4'
-        value={user.password}
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        placeholder='Password again'
-        name='passwordRepeat'
-        className='rounded p-2 w-2/4'
-        value={passwordRepeat}
-        onChange={handleChange}
-      />
-      <button className='h-10 rounded bg-bgsecondary text-textprimary px-4'>Register</button>
-      <Link to="/login">Have an account? <b>Login</b></Link>
-    </form>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleRegister}
+    >
+      {({ isSubmitting }) => (
+        <Form className='flex flex-col gap-4 justify-center items-center'>
+          <Field
+            type='text'
+            name='username'
+            placeholder='Username'
+            className='rounded p-2 w-2/4'
+          />
+          <ErrorMessage name='username' component='div' className='text-red-500 text-left' />
+
+          <Field
+            type='password'
+            name='password'
+            placeholder='Password'
+            className='rounded p-2 w-2/4'
+          />
+          <ErrorMessage name='password' component='div' className='text-red-500' />
+
+          <Field
+            type='password'
+            name='passwordRepeat'
+            placeholder='Password again'
+            className='rounded p-2 w-2/4'
+          />
+          <ErrorMessage name='passwordRepeat' component='div' className='text-red-500' />
+
+          <Field as='select' name='role' className='rounded p-2 w-2/4'>
+            <option value={enmRole.Admin}>Admin</option>
+            <option value={enmRole.User}>User</option>
+          </Field>
+          <ErrorMessage name='role' component='div' className='text-red-500' />
+
+          <button
+            type='submit'
+            className='h-9 rounded bg-bgsecondary text-textprimary px-3 bg-gray-200 border border-black rounded-md'
+            disabled={isSubmitting}
+          >
+            Register
+          </button>
+          <Link to='/login'>Have an account? <b>Login</b></Link>
+        </Form>
+      )}
+    </Formik>
   );
-}
+};
 
 export default RegisterPage;

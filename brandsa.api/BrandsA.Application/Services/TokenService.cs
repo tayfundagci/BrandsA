@@ -23,7 +23,7 @@ namespace BrandsA.Application.Services
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.SecurityKey));
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            tokenModel.Expiration = DateTime.Now.AddMinutes(15);
+            tokenModel.Expiration = DateTime.Now.AddMinutes(30);
             JwtSecurityToken securityToken = new JwtSecurityToken
                 (
                 issuer: settings.Issuer,

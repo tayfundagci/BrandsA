@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BrandsA.Persistence.Migrations
 {
     [DbContext(typeof(EfContext))]
-    [Migration("20240604172648_mig_1")]
+    [Migration("20240605122534_mig_1")]
     partial class mig1
     {
         /// <inheritdoc />

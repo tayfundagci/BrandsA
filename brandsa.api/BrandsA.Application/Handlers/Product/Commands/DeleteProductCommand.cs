@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using BrandsA.Application.Dtos;
-using BrandsA.Application.Interfaces;
-using BrandsA.Application.Password;
+﻿using BrandsA.Application.Interfaces;
 using BrandsA.Application.Response;
 using MediatR;
 

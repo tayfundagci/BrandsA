@@ -4,7 +4,6 @@ import mdlUserLoginRequest from "../core/servicemodels/user/UserLoginRequest";
 import UserService from "../core/services/AuthService";
 import { toast } from "react-toastify";
 import CookieManager from "../core/helpers/CookieManager";
-import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
   user: mdlUser | null;
@@ -36,8 +35,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(response.body.user);
       toast.success(response.message);
       localStorage.setItem("user", JSON.stringify(response.body.user))
-      CookieManager.setCookie("access_Token", response.body.access_Token);
+      CookieManager.setCookie("access_Token", response.body.access_Token, 30);
       CookieManager.setCookie("refresh_Token", response.body.refresh_Token);
+      window.location.href = "/"
     } else {
       toast.warning(response.message);
     }
@@ -48,6 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     CookieManager.removeCookie("access_Token");
     CookieManager.removeCookie("refresh_Token");
     setUser(null);
+    window.location.href = window.location.origin + "/login"
   }
 
 

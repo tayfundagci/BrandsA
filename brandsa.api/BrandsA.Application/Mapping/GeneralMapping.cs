@@ -4,11 +4,6 @@ using BrandsA.Application.Handlers.Product.Commands;
 using BrandsA.Application.Handlers.Product.Queries;
 using BrandsA.Application.Handlers.User.Commands;
 using BrandsA.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrandsA.Application.Mapping
 {

@@ -3,7 +3,7 @@ using BrandsA.Application.Dtos;
 using BrandsA.Application.Interfaces;
 using BrandsA.Application.Password;
 using BrandsA.Application.Response;
-using FluentValidation;
+using BrandsA.Core.Enums;
 using MediatR;
 
 namespace BrandsA.Application.Handlers.User.Commands
@@ -12,6 +12,7 @@ namespace BrandsA.Application.Handlers.User.Commands
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public enmRole Role { get; set; }
 
         public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, BaseDataResponse<UserDto>>
         {
@@ -35,6 +36,7 @@ namespace BrandsA.Application.Handlers.User.Commands
                     {
                         Username = request.Username,
                         Password = Encryption.EncryptPassword(request.Password),
+                        Role = request.Role,
                         CreatedDate = DateTime.Now
                     };
 

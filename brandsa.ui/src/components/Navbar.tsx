@@ -1,6 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom'
-import CookieManager from '../core/helpers/CookieManager';
-import { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 function Navbar() {
@@ -19,9 +17,13 @@ function Navbar() {
         <Link to='/'>Brands A</Link>
       </div>
       <div className='right flex gap-3'>
-        {/* <Link to="/">Home</Link>
-        <Link to="/login">Login</Link> */}
-        {user && <button onClick={handleLogout}>Logout</button>}
+        {user && (
+          <div>
+            <span>Welcome {user.username}!</span>
+            <button className='px-5' onClick={handleLogout}>Logout</button>
+          </div>
+        )}
+
       </div>
     </div>
   )
