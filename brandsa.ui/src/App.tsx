@@ -1,16 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
+import { createBrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          BrandsA
-        </p>
-      </header>
+    <div className='bg-[#f2f2f2]'>
+      <div className="main justify-between  flex flex-col min-h-screen container mx-auto">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+        <Footer />
+      </div>
     </div>
   );
 }
