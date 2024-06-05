@@ -24,7 +24,7 @@ function DetailPage() {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4">
+    <div className="mx-5 md:mx-40 bg-white shadow-md rounded-lg p-4">
       <div className="mb-2">
         <div className="font-bold">Name:</div>
         <div>{product?.name}</div>

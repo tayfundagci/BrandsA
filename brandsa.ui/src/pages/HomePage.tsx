@@ -41,10 +41,10 @@ function HomePage() {
 
   return (
     <div>
-      <div className='p-20 flex flex-col'>
+      <div className='p-5 md:p-20 flex flex-col'>
         {user?.role == enmRole.Admin && (
           <div className='flex justify-end'>
-            <button className='m-2 h-9 px-3  font-medium  bg-gray-200 border border-black rounded-md ' onClick={() => navigate("/create")}>Create Product</button>
+            <button className='m-2 md:h-9 px-2 md:px-4   md:font-medium  bg-gray-200 border border-black rounded-md ' onClick={() => navigate("/create")}>Create Product</button>
           </div>
         )}
 

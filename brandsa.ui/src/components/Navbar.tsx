@@ -12,7 +12,7 @@ function Navbar() {
   }
 
   return (
-    <div className='h-24 flex justify-between items-center'>
+    <div className='h-24 flex justify-between items-center px-10 md:px-0'>
       <div className='left font-bold text-lg'>
         <Link to='/'>Brands A</Link>
       </div>

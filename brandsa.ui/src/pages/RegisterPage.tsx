@@ -98,7 +98,7 @@ const RegisterPage: React.FC = () => {
 
           <button
             type='submit'
-            className='h-9 bg-bgsecondary text-textprimary px-3 bg-gray-200 border border-black rounded-md'
+            className='md:h-9 px-2 md:px-4   md:font-medium bg-bgsecondary text-textprimary  bg-gray-200 border border-black rounded-md'
             disabled={isSubmitting}
           >
             Register
