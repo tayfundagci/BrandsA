@@ -32,6 +32,7 @@ namespace BrandsA.Application
                 typeof(ListProductsQuery).Assembly,
                 typeof(DeleteProductCommand).Assembly
             ));; 
+
         }
     }
 }

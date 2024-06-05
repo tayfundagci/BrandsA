@@ -1,4 +1,5 @@
 ﻿using BrandsA.Application.Interfaces;
+using BrandsA.Application.Services;
 using BrandsA.Persistence.Context;
 using BrandsA.Persistence.Repositories;
 using BrandsA.Shared;
@@ -32,6 +33,7 @@ namespace BrandsA.Persistence
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddTransient<ITokenService, TokenService>();
         }
     }
 }

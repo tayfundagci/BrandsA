@@ -1,6 +1,7 @@
 using BrandsA.Application;
 using BrandsA.Persistence;
 using BrandsA.Shared;
+using BrandsA.WebApi.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -73,6 +74,7 @@ app.UseCors(builder =>
    .AllowAnyMethod()
    .AllowAnyHeader();
 });
+app.UseMiddleware<RequestIdentifyMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
