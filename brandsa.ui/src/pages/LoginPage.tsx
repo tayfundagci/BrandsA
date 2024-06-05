@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
@@ -48,7 +47,7 @@ function LoginPage() {
             />
             <ErrorMessage name="password" component="div" className="text-red-500" />
 
-            <button type="submit" className='h-9 px-3 rounded bg-bgsecondary text-textprimary  bg-gray-200 border border-black rounded-md' disabled={isSubmitting}>
+            <button type="submit" className='h-9 px-3 bg-bgsecondary text-textprimary  bg-gray-200 border border-black rounded-md' disabled={isSubmitting}>
               Login
             </button>
 
